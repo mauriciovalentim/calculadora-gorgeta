@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity
         {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progresso = percentSeek.getProgress();
-                percentView.setText(String.valueOf(progresso)+"%");
+                calculosApp(progress);
             }
 
             @Override
@@ -49,19 +48,26 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onStopTrackingTouch(SeekBar seekBar)
             {
-                if(valor.getText().toString().trim().length() < 1)
-                {
-                    Toast.makeText(getApplicationContext(),
-                            "Digite um valor primeiro",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    valorCalculo = Float.valueOf(valor.getText().toString());
-                    gorgeta.setText(String.format("R$%.2f", valorCalculo/100*progresso));
-                    total.setText(String.format("R$%.2f", valorCalculo+(valorCalculo/100*progresso)));
-                }
+
             }
         });
     }
+
+    private void calculosApp(int p){
+        progresso = p;
+        percentView.setText(String.valueOf(progresso)+"%");
+        if(valor.getText().toString().trim().length() < 1)
+        {
+            Toast.makeText(getApplicationContext(),
+                    "Digite um valor primeiro",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            valorCalculo = Float.valueOf(valor.getText().toString());
+            gorgeta.setText(String.format("R$%.2f", valorCalculo/100*progresso));
+            total.setText(String.format("R$%.2f", valorCalculo+(valorCalculo/100*progresso)));
+        }
+    }
+
 }
