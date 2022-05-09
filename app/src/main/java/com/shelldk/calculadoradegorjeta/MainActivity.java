@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     TextView percentView, gorgeta, total;
     EditText valor;
     SeekBar percentSeek;
     int progresso;
     float valorCalculo;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //declarando variaveis
@@ -27,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
         mudarPorcentagem();
     }
 
-    private void mudarPorcentagem(){
-        percentSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    private void mudarPorcentagem()
+    {
+        percentSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progresso = percentSeek.getProgress();
@@ -36,23 +41,27 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                if(valor.getText().toString().trim().length() < 1){
-                    valorCalculo = 0;
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                if(valor.getText().toString().trim().length() < 1)
+                {
+                    Toast.makeText(getApplicationContext(),
+                            "Digite um valor primeiro",
+                            Toast.LENGTH_SHORT).show();
                 }
-                else {
+                else
+                {
                     valorCalculo = Float.valueOf(valor.getText().toString());
+                    gorgeta.setText(String.format("R$%.2f", valorCalculo/100*progresso));
+                    total.setText(String.format("R$%.2f", valorCalculo+(valorCalculo/100*progresso)));
                 }
-                gorgeta.setText(String.format("R$%.2f", valorCalculo/100*progresso));
-                total.setText(String.format("R$%.2f", valorCalculo+(valorCalculo/100*progresso)));
             }
         });
     }
-
-
 }
